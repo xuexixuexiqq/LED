@@ -1,6 +1,8 @@
 projects:
   LED:
   - project.yaml
+  LED-rtt:
+  - project_rtthread.yaml
 settings:
   export_dir:
   - generate_project

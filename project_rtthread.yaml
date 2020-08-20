@@ -1,0 +1,66 @@
+common:
+  includes:
+  - Drivers
+  - Drivers\CMSIS
+  - Drivers\CMSIS\Device
+  - Drivers\CMSIS\Device\ST
+  - Drivers\CMSIS\Device\ST\STM32F1xx
+  - Drivers\CMSIS\Device\ST\STM32F1xx\Include
+  - Drivers\CMSIS\Include
+  - Drivers\STM32F1xx_HAL_Driver
+  - Drivers\STM32F1xx_HAL_Driver\Inc
+  - Drivers\STM32F1xx_HAL_Driver\Inc\Legacy
+  - Inc
+  - Libraries
+  - Libraries\rt-thread
+  - Libraries\rt-thread\HAL_Drivers
+  - Libraries\rt-thread\board-103c8
+  - Libraries\rt-thread\components
+  - Libraries\rt-thread\components\drivers
+  - Libraries\rt-thread\components\drivers\include
+  - Libraries\rt-thread\include
+  - Libraries\rt-thread\include\libc
+  - Middlewares
+  - Middlewares\ST
+  - Middlewares\ST\STM32_USB_Device_Library
+  - Middlewares\ST\STM32_USB_Device_Library\Class
+  - Middlewares\ST\STM32_USB_Device_Library\Class\CDC
+  - Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc
+  - Middlewares\ST\STM32_USB_Device_Library\Core
+  - Middlewares\ST\STM32_USB_Device_Library\Core\Inc
+  - Middlewares\Third_Party
+  - Middlewares\Third_Party\FatFs
+  - Middlewares\Third_Party\FatFs\src
+  sources:
+    Drivers:
+    - Drivers\STM32F1xx_HAL_Driver\Src
+    RTThread:
+    - Libraries\rt-thread\HAL_Drivers
+    - Libraries\rt-thread\board-103c8
+    - Libraries\rt-thread\libcpu\arm\cortex-m3\cpuport.c
+    - Libraries\rt-thread\src
+    Middlewares:
+    - Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c
+    - Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_core.c
+    - Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c
+    - Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
+    - Middlewares\Third_Party\FatFs\src\diskio.c
+    - Middlewares\Third_Party\FatFs\src\ff.c
+    - Middlewares\Third_Party\FatFs\src\ff_gen_drv.c   
+    - Middlewares\Third_Party\FatFs\src\option\syscall.c
+    Src-rtt:
+    - Src-rtt
+  target:
+  - stm32f103rb
+tool_specific:
+  iar_arm:
+    macros:
+    - USE_HAL_DRIVER
+    - STM32F103xB    
+    sources:
+      StartUp:
+      - IDE/EWARM
+      RTThread:
+      - Libraries/rt-thread/libcpu/arm/cortex-m3/context_iar.S
+    linker_file:
+    - IDE\EWARM\stm32f103xb_flash.icf
