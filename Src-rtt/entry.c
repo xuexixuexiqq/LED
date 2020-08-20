@@ -26,7 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "entry.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,6 +57,30 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+rt_thread_t led1_thread = RT_NULL;
+rt_thread_t led2_thread = RT_NULL;
+
+void led1_thread_entry(void* parameter)
+{
+  while(1){
+    HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+    rt_thread_delay(500);
+    
+    HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+    rt_thread_delay(500);
+  }
+}
+
+void led2_thread_entry(void* parameter)
+{
+  while(1){
+    HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+    rt_thread_delay(200);
+    
+    HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+    rt_thread_delay(200);
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -91,7 +115,8 @@ int main(void)
   MX_FATFS_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-
+  RTT_CREATE(led1,led1_thread_entry,RT_NULL,256,5,20);
+  RTT_CREATE(led2,led2_thread_entry,RT_NULL,256,5,20);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,9 +124,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_Delay(500);
-    HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
